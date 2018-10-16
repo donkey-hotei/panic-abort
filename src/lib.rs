@@ -19,14 +19,12 @@
 #![allow(stable_features)]
 #![deny(missing_docs)]
 #![deny(warnings)]
-#![feature(core_intrinsics)]
-#![feature(panic_handler)]
+#![feature(panic_implementation)]
+#![feature(panic_runtime)]
+#![panic_runtime]
 #![no_std]
 
-use core::intrinsics;
 use core::panic::PanicInfo;
 
-#[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
-    unsafe { intrinsics::abort() }
-}
+#[panic_implementation]
+fn panic(_info: &PanicInfo) -> ! { loop { } }
